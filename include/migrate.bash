@@ -11,7 +11,7 @@ migrate-startdb() {
     declare desc="Starts the DB containers"
 
     deployer-generate
-    compose-up --no-recreate cbdb pcdb
+    compose-up --no-recreate cbdb pcdb uaadb
 }
 
 migrate-execute-mybatis-migrations() {
