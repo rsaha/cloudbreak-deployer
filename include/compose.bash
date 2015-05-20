@@ -145,7 +145,7 @@ identity:
 
 cbdb:
     ports:
-        - 5432
+        - 5432:5432
     environment:
       - SERVICE_NAME=cbdb
         #- SERVICE_CHECK_CMD=bash -c 'psql -h 127.0.0.1 -p 5432  -U postgres -c "select 1"'
@@ -185,7 +185,7 @@ cloudbreak:
         - ENDPOINTS_BEANS_ENABLED=false
         - ENDPOINTS_ENV_ENABLED=false
         - CB_IDENTITY_SERVER_URL=http://backend:8089
-        - CB_DB_PORT_5432_TCP_ADDR=backend
+        - CB_DB_PORT_5432_TCP_ADDR=$PRIVATE_IP
         - CB_DB_PORT_5432_TCP_PORT=5432
         - BACKEND_5432=cbdb.service.consul
         - BACKEND_8089=identity.service.consul
@@ -247,7 +247,7 @@ pcdb:
         - SERVICE_NAME=pcdb
      #- SERVICE_NAMEE_CHECK_CMD='psql -h 127.0.0.1 -p 5432  -U postgres -c "select 1"'
     ports:
-        - 5432
+        - 5433:5432
     volumes:
         - "$CB_DB_ROOT_PATH/periscopedb:/var/lib/postgresql/data"
     image: sequenceiq/pcdb:$DOCKER_TAG_PCDB
@@ -273,7 +273,7 @@ periscope:
         - ENDPOINTS_MAPPINGS_ENABLED=false
         - ENDPOINTS_BEANS_ENABLED=false
         - ENDPOINTS_ENV_ENABLED=false
-        - PERISCOPE_DB_TCP_ADDR=backend
+        - PERISCOPE_DB_TCP_ADDR=$PRIVATE_IP
         - PERISCOPE_DB_TCP_PORT=5433
         - PERISCOPE_CLOUDBREAK_URL=http://backend:8080
         - PERISCOPE_IDENTITY_SERVER_URL=http://backend:8089/
